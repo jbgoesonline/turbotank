@@ -10,6 +10,12 @@ public class tankmove : MonoBehaviour
     public Rigidbody2D rb;
     public GameObject player;
     //public Camera cam;
+    
+    //health bar stuff
+    public int maxHealth;
+    public HealthBar healthBar;
+    public int currentHealth = 100;
+    public int damageValue = 20;
 
     float dx;
     float dy;
@@ -20,6 +26,10 @@ public class tankmove : MonoBehaviour
     {
         //Get and store a reference to the Rigidbody2D component so that we can access it.
         rb = GetComponent<Rigidbody2D> ();
+        
+        //heatlh bar init
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
     // Update is called once per frame
 
@@ -47,9 +57,18 @@ public class tankmove : MonoBehaviour
         //Debug.Log("Angle: " + rb.rotation);
     }
 
-        void OnCollisionEnter2D(Collision2D collision) {
+    void OnCollisionEnter2D(Collision2D collision) {
     	if (collision.gameObject.tag == "Bullet") {
-    		Destroy(player);
+    		takeDamage(damageValue);
+    		if (currentHealth <= 0) {
+    			Destroy(player);
+    		}
     	}
     }
+    
+    void takeDamage (int damageValue) {
+    	currentHealth -= damageValue;
+    	healthBar.SetHealth(currentHealth);
+    }
 }
+
