@@ -97,7 +97,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 20
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -137,7 +137,8 @@ MonoBehaviour:
   moveSpeed: 65
   moveSpeed2: 10
   rb: {fileID: 4133176215574872212}
-  player: {fileID: 4133176215574872200}
+  BOT: {fileID: 0}
+  PlayerTank: {fileID: 0}
   maxHealth: 0
   healthBar: {fileID: 0}
   currentHealth: 100
@@ -315,7 +316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2137743103687283492}
   - component: {fileID: 2238540382336586530}
-  - component: {fileID: 8305670124910152014}
+  - component: {fileID: 6298852737539081134}
   m_Layer: 0
   m_Name: Rotator
   m_TagString: Untagged
@@ -388,7 +389,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8305670124910152014
+--- !u!114 &6298852737539081134
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -397,9 +398,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4279931370900470056}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c7d9581070054e14ac5ccdb04868b44, type: 3}
+  m_Script: {fileID: 11500000, guid: 15f409ddabb2f48519515512fbf1b3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 4133176216646469379}
   bulletPrefab: {fileID: 7340868432757897442, guid: 55ada64134355497498746ef116132a3,
     type: 3}
+  waitTime: 2

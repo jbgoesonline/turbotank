@@ -41,10 +41,6 @@ public class BOTmove : MonoBehaviour
         
     }
     
-    void shootRandomly () {
-    	//need to access weapon class from here
-    	//then shoot randomly
-    }
 
     void OnCollisionEnter2D(Collision2D collision) {
     	if (collision.gameObject.tag == "Bullet") {
