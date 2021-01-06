@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Wall
   - Bullet
+  - BOT
   layers:
   - Default
   - TransparentFX
