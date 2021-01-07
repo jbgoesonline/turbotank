@@ -55,7 +55,6 @@ public class BOTWeapon : MonoBehaviour
     		Vector2 biggerCircleOutsideTank = new Vector2(GameObject.Find("Bot").transform.position.x + (unitCirclePos.x * 4), GameObject.Find("Bot").transform.position.y + (unitCirclePos.y * 4));
     		RaycastHit2D hit = Physics2D.Raycast(circleOutsideTank, biggerCircleOutsideTank);
     		//if I get a hit on the player tank, fire bullet
-    		//Debug.Log(circleOutsideTank);
     		Debug.Log(hit.collider.tag);
     		if (hit.collider.tag == "Player") {
     			Vector3 returnValue = new Vector3 (circleOutsideTank.x, circleOutsideTank.y, 0);
