@@ -36,12 +36,15 @@ public class BOTmove : MonoBehaviour
         Vector2 lookDir = MousePos-transform.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x)*Mathf.Rad2Deg;
         Quaternion angle_q =  Quaternion.Euler (0f, 0f, angle);
-        transform.rotation = Quaternion.Slerp(transform.rotation, angle_q, Time.deltaTime * 1);
+        Quaternion init = transform.rotation;
+        //while()
+        transform.rotation = Quaternion.Lerp(transform.rotation, angle_q, Time.deltaTime * 1);
+        yield return null;
     }
 
     private void Update(){
 
-        StartCoroutine("Rotate");
+        //StartCoroutine("Rotate");
     
     }
 
