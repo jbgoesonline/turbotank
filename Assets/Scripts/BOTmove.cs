@@ -17,7 +17,7 @@ public class BOTmove : MonoBehaviour
     public HealthBar healthBar;
     public int currentHealth = 100;
     public int damageValue = 20;
-
+     Vector3 MousePos;
 
     // Start is called before the first frame update
        void Start()
@@ -31,9 +31,17 @@ public class BOTmove : MonoBehaviour
     }
     // Update is called once per frame
 
-
+    IEnumerator Rotate(){
+        MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 lookDir = MousePos-transform.position;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x)*Mathf.Rad2Deg;
+        Quaternion angle_q =  Quaternion.Euler (0f, 0f, angle);
+        transform.rotation = Quaternion.Slerp(transform.rotation, angle_q, Time.deltaTime * 1);
+    }
 
     private void Update(){
+
+        StartCoroutine("Rotate");
     
     }
 
