@@ -57,27 +57,54 @@ public class BOTWeapon : MonoBehaviour
     //Add to this function parameters that I can change. Randomness, only reflect, near hits, only direct, shooting speed, etc. can choose values near in the array for 'wobble' or near hits
     //aiming including raycasting
     Vector3 aim () {
-    	for (float i = 0.0f; i < 2*Mathf.PI; i+=.01f) {
+    	//the class that contains aim information
+    	class AimClass {
+    		public RaycastHit2D hit;
+    		public RaycastHit2D reflectHit;
+    		public Vector2 hitAimCords;
+    		
+    		public AimClass (RaycastHit2D hit, RaycastHit2D reflectHit, Vector2 hitAimCords) {
+    			hit = hit;
+    			reflectHit = reflectHit; //RIGHT NOTATION?? do I need new operator
+    			hitAimCords = hitAimCords;
+    		}
+    	}
+    	List <AimClass> listOfAims = new List <AimClass>;
+    	
+    	/*RaycastHit2D [] totalHits = new RaycastHit2D [300];
+    	RaycastHit2D []	totalReflectHits = new RaycastHit2D [300];
+    	float [] hitsX = new float [300];
+    	float [] hitsY = new float [300];
+    	*/
+    	
+    	for (float i = 0.0f; i < 2*Mathf.PI; i+=.1f) {
+    		
     		//raycast whole circle for hits
     		Vector2 unitCirclePos = new Vector2 (Mathf.Cos(i), Mathf.Sin(i));
     		Vector2 circleOutsideTank = new Vector2(GameObject.Find("Bot").transform.position.x + (unitCirclePos.x * 3), GameObject.Find("Bot").transform.position.y + (unitCirclePos.y * 3));
-    		RaycastHit2D hit = Physics2D.Raycast(circleOutsideTank, unitCirclePos);
+    		RaycastHit2D hitTemp = Physics2D.Raycast(circleOutsideTank, unitCirclePos);
     		//if I get a hit on the player tank, fire bullet
-    		Debug.Log(hit.collider.tag);
-    		if (hit.collider.tag == "Player") {
-    			Vector3 returnValue = new Vector3 (circleOutsideTank.x, circleOutsideTank.y, 0);
-    			return returnValue;
-    		}
     		
-    		RaycastHit2D reflectHit = Physics2D.Raycast(hit.point , Vector2.Reflect(unitCirclePos, hit.normal));
-    		if (reflectHit.collider.tag == "Player") {
-    			Vector3 returnValue = new Vector3 (circleOutsideTank.x, circleOutsideTank.y, 0);
-    			return returnValue;
+    		RaycastHit2D reflectHitTemp = Physics2D.Raycast(hitTemp.point, Vector2.Reflect(unitCirclePos, hitTemp.normal));
+    		listOfAims.Add(new AimClass(hitTemp, reflectHitTemp, circleOutsideTank));
+    		//BELOW NEED TO MODIFY FOR LIST OF CLASSES
     		}
-    	}
+    	for (int j = 0; j < 600; j+=1) {
+    		if (totalHits[j].collider.tag == "Player") {
+    			//Vector3 returnValue = new Vector3 (circleOutsideTank.x, circleOutsideTank.y, 0);
+    			Vector3 returnValue = new Vector3 (hitsX[j], hitsY[j], 0);
+    			return returnValue;
+    			}
+    		if (totalReflectHits[j].collider.tag == "Player") {
+    			//Vector3 returnValue = new Vector3 (circleOutsideTank.x, circleOutsideTank.y, 0);
+    			Vector3 returnValue = new Vector3 (hitsX[j], hitsY[j], 0);
+    			return returnValue;
+    			}
+    		}
+    	
     	Vector3 returnValue1 = new Vector3 (1, -10, 0);
     	return returnValue1;
+    	}
     }
     
-}
 
