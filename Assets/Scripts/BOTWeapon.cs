@@ -15,7 +15,7 @@ public class BOTWeapon : MonoBehaviour
 	
 
     // Update is called once per frame
-    void Update() {
+    void FixedUpdate() {
     	//update timer
     	timer += Time.deltaTime;
     	
@@ -46,8 +46,23 @@ public class BOTWeapon : MonoBehaviour
     	
     }
     
+    //aiming including raycasting
     Vector3 aim () {
-    	return GameObject.Find("Player Tank").transform.position;;
+    	for (float i = 0.0f; i < 2*Mathf.PI; i+=.01f) {
+    		//raycast whole circle for hits
+    		Vector2 unitCirclePos = new Vector2 (Mathf.Cos(i), Mathf.Sin(i));
+    		Vector2 circleOutsideTank = new Vector2(GameObject.Find("Bot").transform.position.x + (unitCirclePos.x), GameObject.Find("Bot").transform.position.y + (unitCirclePos.y));
+    		RaycastHit2D hit = Physics2D.Raycast(2 * circleOutsideTank, 3 * circleOutsideTank);
+    		//if I get a hit on the player tank, fire bullet
+    		//Debug.Log(circleOutsideTank);
+    		Debug.Log(hit.collider.tag);
+    		if (hit.collider.tag == "Player") {
+    			Vector3 returnValue = new Vector3 (unitCirclePos.x, unitCirclePos.y, 0);
+    			return returnValue;
+    		}
+    	}
+    	Vector3 returnValue1 = new Vector3 (1, 10, 0);
+    	return returnValue1;
     }
     
 }
