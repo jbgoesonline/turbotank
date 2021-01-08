@@ -8,12 +8,12 @@ class AimClass {
 	public RaycastHit2D reflectHit;
 	public Vector2 hitAimCords;
 	
-	public AimClass (RaycastHit2D hit, RaycastHit2D reflectHit, Vector2 hitAimCords) {
-		hit = hit;
-		reflectHit = reflectHit; //RIGHT NOTATION?? do I need new operator
-		hitAimCords = hitAimCords;
-    		}
+	public AimClass (RaycastHit2D hit1, RaycastHit2D reflectHit1, Vector2 hitAimCords1) {
+		hit = hit1;
+		reflectHit = reflectHit1; //RIGHT NOTATION?? do I need new operator
+		hitAimCords = hitAimCords1;
     	}
+    }
 
 public class BOTWeapon : MonoBehaviour
 {
@@ -73,11 +73,6 @@ public class BOTWeapon : MonoBehaviour
     	
     	List <AimClass> listOfAims = new List <AimClass> ();
     	
-    	//RaycastHit2D [] totalHits = new RaycastHit2D [300];
-    	//RaycastHit2D []	totalReflectHits = new RaycastHit2D [300];
-    	//float [] hitsX = new float [300];
-    	//float [] hitsY = new float [300];
-    	
     	
     	for (float i = 0.0f; i < 2*Mathf.PI; i+=.1f) {
     		
@@ -89,15 +84,16 @@ public class BOTWeapon : MonoBehaviour
     		
     		RaycastHit2D reflectHitTemp = Physics2D.Raycast(hitTemp.point, Vector2.Reflect(unitCirclePos, hitTemp.normal));
     		listOfAims.Add(new AimClass(hitTemp, reflectHitTemp, circleOutsideTank));
-    		//BELOW NEED TO MODIFY FOR LIST OF CLASSES
     		}
-    	for (int j = 0; j < 600; j+=1) {
+
+    		
+    	for (int j = 0; j < listOfAims.Count; j+=1) {
     		if (listOfAims[j].hit.collider.tag == "Player") {
     			//Vector3 returnValue = new Vector3 (circleOutsideTank.x, circleOutsideTank.y, 0);
     			//Vector3 returnValue = new Vector3 (hitsX[j], hitsY[j], 0);
     			return listOfAims[j].hitAimCords;
     			}
-    		if (listOfAims[j].hit.collider.tag == "Player") {
+    		if (listOfAims[j].reflectHit.collider.tag == "Player") {
     			//Vector3 returnValue = new Vector3 (circleOutsideTank.x, circleOutsideTank.y, 0);
     			//Vector3 returnValue = new Vector3 (hitsX[j], hitsY[j], 0);
     			return listOfAims[j].hitAimCords;
