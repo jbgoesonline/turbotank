@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class tankmove : MonoBehaviour
 {
-    public float moveSpeed;
+    public float angularSpeed;
     public float moveSpeed2;
     public Rigidbody2D rb;
     public GameObject player;
@@ -44,7 +44,7 @@ public class tankmove : MonoBehaviour
     }
 
     private void FixedUpdate(){
-        float angleV =-dx*moveSpeed;
+        float angleV =-dx*angularSpeed;
         float velCom = dy*moveSpeed2;
         float xv = (float) Math.Cos(rb.rotation*(Math.PI/180));
         float yv = (float) Math.Sin(rb.rotation*(Math.PI/180));
