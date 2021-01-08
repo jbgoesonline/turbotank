@@ -30,7 +30,7 @@ public class BOTmove : MonoBehaviour
         for(int i = 0; i<4; i++){
             if(GameObject.Find("Waypoint"+i))
             {
-                Debug.Log("Found");
+                //Debug.Log("Found");
                 waypoints.Add(GameObject.Find("Waypoint"+i));
             }
             //Debug.Log("Waypoint" + i);
