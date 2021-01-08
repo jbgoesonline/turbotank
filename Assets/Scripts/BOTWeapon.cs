@@ -22,9 +22,7 @@ public class BOTWeapon : MonoBehaviour
     Vector3 MousePos;
     
     //shooting settings
-    public int randomWeight;
-    public int reflectWeight;
-    public int straightWeight;
+    
 
 	//timer details
 	public float waitTime = 2.0f;
@@ -94,10 +92,13 @@ public class BOTWeapon : MonoBehaviour
     	List <AimClass> listOfHits = new List <AimClass> ();
     	for (int j = 0; j < listOfAims.Count; j+=1) {
     		if (listOfAims[j].hit.collider.tag == "Player") {
+    			//Vector3 returnValue = new Vector3 (circleOutsideTank.x, circleOutsideTank.y, 0);
+    			//Vector3 returnValue = new Vector3 (hitsX[j], hitsY[j], 0);
     			listOfHits.Add(listOfAims[j]);
     			}
-    			
     		if (listOfAims[j].reflectHit.collider.tag == "Player") {
+    			//Vector3 returnValue = new Vector3 (circleOutsideTank.x, circleOutsideTank.y, 0);
+    			//Vector3 returnValue = new Vector3 (hitsX[j], hitsY[j], 0);
     			listOfHits.Add(listOfAims[j]);
     			}
     		}
@@ -108,6 +109,7 @@ public class BOTWeapon : MonoBehaviour
     		}
     	return new Vector3 (100, 100, 0);
 
+    	return listOfHits[Random.Range(0, listOfHits.Count-1)].hitAimCords;
     	//return listOfAims[j].hitAimCords;
     	
     	}
