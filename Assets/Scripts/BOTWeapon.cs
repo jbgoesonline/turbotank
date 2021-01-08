@@ -103,7 +103,7 @@ public class BOTWeapon : MonoBehaviour
     			}
     		}
     	
-    	return listOfHits[Random.Range(0, listOfHits.Count)].hitAimCords;
+    	return listOfHits[Random.Range(0, listOfHits.Count-1)].hitAimCords;
     	//return listOfAims[j].hitAimCords;
     	
     	}
