@@ -21,6 +21,8 @@ public class BOTWeapon : MonoBehaviour
 	public GameObject bulletPrefab;
     Vector3 MousePos;
     
+    //shooting settings
+    
 
 	//timer details
 	public float waitTime = 2.0f;
@@ -87,21 +89,23 @@ public class BOTWeapon : MonoBehaviour
     		}
 
     		
+    	List <AimClass> listOfHits = new List <AimClass> ();
     	for (int j = 0; j < listOfAims.Count; j+=1) {
     		if (listOfAims[j].hit.collider.tag == "Player") {
     			//Vector3 returnValue = new Vector3 (circleOutsideTank.x, circleOutsideTank.y, 0);
     			//Vector3 returnValue = new Vector3 (hitsX[j], hitsY[j], 0);
-    			return listOfAims[j].hitAimCords;
+    			listOfHits.Add(listOfAims[j]);
     			}
     		if (listOfAims[j].reflectHit.collider.tag == "Player") {
     			//Vector3 returnValue = new Vector3 (circleOutsideTank.x, circleOutsideTank.y, 0);
     			//Vector3 returnValue = new Vector3 (hitsX[j], hitsY[j], 0);
-    			return listOfAims[j].hitAimCords;
+    			listOfHits.Add(listOfAims[j]);
     			}
     		}
     	
-    	Vector3 returnValue1 = new Vector3 (1, -10, 0);
-    	return returnValue1;
+    	return listOfHits[Random.Range(0, listOfHits.Count)].hitAimCords;
+    	//return listOfAims[j].hitAimCords;
+    	
     	}
     }
     
