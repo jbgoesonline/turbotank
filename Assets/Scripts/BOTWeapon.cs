@@ -2,6 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//the class that contains aim information
+class AimClass {
+    public RaycastHit2D hit;
+	public RaycastHit2D reflectHit;
+	public Vector2 hitAimCords;
+	
+	public AimClass (RaycastHit2D hit, RaycastHit2D reflectHit, Vector2 hitAimCords) {
+		hit = hit;
+		reflectHit = reflectHit; //RIGHT NOTATION?? do I need new operator
+		hitAimCords = hitAimCords;
+    		}
+    	}
+
 public class BOTWeapon : MonoBehaviour
 {
 	public Transform firePoint;
@@ -57,25 +70,14 @@ public class BOTWeapon : MonoBehaviour
     //Add to this function parameters that I can change. Randomness, only reflect, near hits, only direct, shooting speed, etc. can choose values near in the array for 'wobble' or near hits
     //aiming including raycasting
     Vector3 aim () {
-    	//the class that contains aim information
-    	class AimClass {
-    		public RaycastHit2D hit;
-    		public RaycastHit2D reflectHit;
-    		public Vector2 hitAimCords;
-    		
-    		public AimClass (RaycastHit2D hit, RaycastHit2D reflectHit, Vector2 hitAimCords) {
-    			hit = hit;
-    			reflectHit = reflectHit; //RIGHT NOTATION?? do I need new operator
-    			hitAimCords = hitAimCords;
-    		}
-    	}
-    	List <AimClass> listOfAims = new List <AimClass>;
     	
-    	/*RaycastHit2D [] totalHits = new RaycastHit2D [300];
-    	RaycastHit2D []	totalReflectHits = new RaycastHit2D [300];
-    	float [] hitsX = new float [300];
-    	float [] hitsY = new float [300];
-    	*/
+    	List <AimClass> listOfAims = new List <AimClass> ();
+    	
+    	//RaycastHit2D [] totalHits = new RaycastHit2D [300];
+    	//RaycastHit2D []	totalReflectHits = new RaycastHit2D [300];
+    	//float [] hitsX = new float [300];
+    	//float [] hitsY = new float [300];
+    	
     	
     	for (float i = 0.0f; i < 2*Mathf.PI; i+=.1f) {
     		
@@ -90,15 +92,15 @@ public class BOTWeapon : MonoBehaviour
     		//BELOW NEED TO MODIFY FOR LIST OF CLASSES
     		}
     	for (int j = 0; j < 600; j+=1) {
-    		if (totalHits[j].collider.tag == "Player") {
+    		if (listOfAims[j].hit.collider.tag == "Player") {
     			//Vector3 returnValue = new Vector3 (circleOutsideTank.x, circleOutsideTank.y, 0);
-    			Vector3 returnValue = new Vector3 (hitsX[j], hitsY[j], 0);
-    			return returnValue;
+    			//Vector3 returnValue = new Vector3 (hitsX[j], hitsY[j], 0);
+    			return listOfAims[j].hitAimCords;
     			}
-    		if (totalReflectHits[j].collider.tag == "Player") {
+    		if (listOfAims[j].hit.collider.tag == "Player") {
     			//Vector3 returnValue = new Vector3 (circleOutsideTank.x, circleOutsideTank.y, 0);
-    			Vector3 returnValue = new Vector3 (hitsX[j], hitsY[j], 0);
-    			return returnValue;
+    			//Vector3 returnValue = new Vector3 (hitsX[j], hitsY[j], 0);
+    			return listOfAims[j].hitAimCords;
     			}
     		}
     	
