@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class tankmove : MonoBehaviour
 {
-    public float moveSpeed;
+    public float angularSpeed;
     public float moveSpeed2;
     public Rigidbody2D rb;
     public GameObject player;
