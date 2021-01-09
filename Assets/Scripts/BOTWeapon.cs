@@ -20,12 +20,14 @@ public class BOTWeapon : MonoBehaviour
 	public Transform firePoint;
 	public GameObject bulletPrefab;
     Vector3 MousePos;
+    //public GameObject player;
     
     //shooting settings
     public int randomWeight;
     public int reflectWeight;
     public int straightWeight;
     public int burstMax;
+    public float burstSpeed;
 
 	//timer details
 	public float waitTime = 2.0f;
@@ -34,7 +36,7 @@ public class BOTWeapon : MonoBehaviour
 	int countBurst;
 	
 	void Start () {
-		countBurst = burstMax;
+		countBurst = burstMax - 1;
 		currentWaitTime = waitTime;
 	}
     // Update is called once per frame
@@ -59,16 +61,16 @@ public class BOTWeapon : MonoBehaviour
         if (timer > currentWaitTime) {
         	//burst logic
         	if (countBurst > 0) {
-        		currentWaitTime = .2f;
+        		currentWaitTime = burstSpeed;
         		countBurst = countBurst - 1;
         	}
-        	if (countBurst == 0) {
-        		countBurst = burstMax;
+        	else {
+        		countBurst = burstMax - 1;
         		currentWaitTime = waitTime;
         	}
         	
         	MousePos = aim();
-        	timer = timer - waitTime;
+        	timer = 0.0f;
         	//rotate cannon
         	Vector2 lookDir = MousePos-transform.position;
         	float angle = Mathf.Atan2(lookDir.y, lookDir.x)*Mathf.Rad2Deg-90 ;
@@ -94,6 +96,9 @@ public class BOTWeapon : MonoBehaviour
     	
     	List <AimClass> listOfAims = new List <AimClass> ();
     	
+    	Rigidbody2D playerRB = GameObject.FindWithTag("Player").GetComponent <Rigidbody2D> ();
+    	
+    	
     	
     	for (float i = 0.0f; i < 2*Mathf.PI; i+=.01f) {
     		
@@ -115,8 +120,8 @@ public class BOTWeapon : MonoBehaviour
     		if (listOfAims[num].hit.collider.tag == "Player") {
     			listOfHits.Add(listOfAims[num]);
     			count +=1;
-    			Debug.Log ("Inside straightWeight");
     			}
+    			
     		if (j > listOfAims.Count & count == 0) {
     			count = straightWeight;
     			}
@@ -128,8 +133,8 @@ public class BOTWeapon : MonoBehaviour
     		if (listOfAims[num].reflectHit.collider.tag == "Player" & listOfAims[num].hit.collider.tag != "Player") {
     			listOfHits.Add(listOfAims[num]);
     			count +=1;
-    			Debug.Log("Inside reflectWeight");
     			}
+    			
     		if (j > listOfAims.Count & count == 0) {
     			count = reflectWeight;
     			}

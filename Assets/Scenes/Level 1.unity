@@ -840,12 +840,17 @@ PrefabInstance:
     - target: {fileID: 6298852737539081134, guid: f9f6a379bc8034d7fbd5af1d0b1dddc0,
         type: 3}
       propertyPath: burstMax
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6298852737539081134, guid: f9f6a379bc8034d7fbd5af1d0b1dddc0,
         type: 3}
       propertyPath: waitTime
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6298852737539081134, guid: f9f6a379bc8034d7fbd5af1d0b1dddc0,
+        type: 3}
+      propertyPath: burstSpeed
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6298852737539081134, guid: f9f6a379bc8034d7fbd5af1d0b1dddc0,
         type: 3}
