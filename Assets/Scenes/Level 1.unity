@@ -839,8 +839,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6298852737539081134, guid: f9f6a379bc8034d7fbd5af1d0b1dddc0,
         type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 15034522}
+    - target: {fileID: 6298852737539081134, guid: f9f6a379bc8034d7fbd5af1d0b1dddc0,
+        type: 3}
       propertyPath: burstMax
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6298852737539081134, guid: f9f6a379bc8034d7fbd5af1d0b1dddc0,
         type: 3}
@@ -865,7 +870,7 @@ PrefabInstance:
     - target: {fileID: 6298852737539081134, guid: f9f6a379bc8034d7fbd5af1d0b1dddc0,
         type: 3}
       propertyPath: straightWeight
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8312516787318249547, guid: f9f6a379bc8034d7fbd5af1d0b1dddc0,
         type: 3}
