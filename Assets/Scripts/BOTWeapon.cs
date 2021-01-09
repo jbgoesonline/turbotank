@@ -25,12 +25,18 @@ public class BOTWeapon : MonoBehaviour
     public int randomWeight;
     public int reflectWeight;
     public int straightWeight;
+    public int burstMax;
 
 	//timer details
 	public float waitTime = 2.0f;
+	float currentWaitTime;
 	float timer = 0.0f;
+	int countBurst;
 	
-
+	void Start () {
+		countBurst = burstMax;
+		currentWaitTime = waitTime;
+	}
     // Update is called once per frame
     void FixedUpdate() {
     	//update timer
@@ -50,7 +56,17 @@ public class BOTWeapon : MonoBehaviour
     	
         
         //recycles timer
-        if (timer > waitTime) {
+        if (timer > currentWaitTime) {
+        	//burst logic
+        	if (countBurst > 0) {
+        		currentWaitTime = .2f;
+        		countBurst = countBurst - 1;
+        	}
+        	if (countBurst == 0) {
+        		countBurst = burstMax;
+        		currentWaitTime = waitTime;
+        	}
+        	
         	MousePos = aim();
         	timer = timer - waitTime;
         	//rotate cannon
@@ -58,6 +74,7 @@ public class BOTWeapon : MonoBehaviour
         	float angle = Mathf.Atan2(lookDir.y, lookDir.x)*Mathf.Rad2Deg-90 ;
         	transform.rotation =  Quaternion.Euler (0f, 0f, angle);
         	ifShoot();
+        	
         }
     }
     
@@ -78,7 +95,7 @@ public class BOTWeapon : MonoBehaviour
     	List <AimClass> listOfAims = new List <AimClass> ();
     	
     	
-    	for (float i = 0.0f; i < 2*Mathf.PI; i+=.1f) {
+    	for (float i = 0.0f; i < 2*Mathf.PI; i+=.01f) {
     		
     		//raycast whole circle for hits
     		Vector2 unitCirclePos = new Vector2 (Mathf.Cos(i), Mathf.Sin(i));
@@ -92,21 +109,42 @@ public class BOTWeapon : MonoBehaviour
 
     		
     	List <AimClass> listOfHits = new List <AimClass> ();
-    	for (int j = 0; j < listOfAims.Count; j+=1) {
-    		if (listOfAims[j].hit.collider.tag == "Player") {
-    			listOfHits.Add(listOfAims[j]);
+    	int count = 0;
+    	for (int j = 0; count < straightWeight; j+=1) {
+    		int num = j % listOfAims.Count;
+    		if (listOfAims[num].hit.collider.tag == "Player") {
+    			listOfHits.Add(listOfAims[num]);
+    			count +=1;
+    			Debug.Log ("Inside straightWeight");
     			}
-    			
-    		if (listOfAims[j].reflectHit.collider.tag == "Player") {
-    			listOfHits.Add(listOfAims[j]);
+    		if (j > listOfAims.Count & count == 0) {
+    			count = straightWeight;
     			}
     		}
     	
+    	count = 0;
+    	for (int j = 0; count < reflectWeight; j+=1) {
+    		int num = j % listOfAims.Count;		
+    		if (listOfAims[num].reflectHit.collider.tag == "Player" & listOfAims[num].hit.collider.tag != "Player") {
+    			listOfHits.Add(listOfAims[num]);
+    			count +=1;
+    			Debug.Log("Inside reflectWeight");
+    			}
+    		if (j > listOfAims.Count & count == 0) {
+    			count = reflectWeight;
+    			}
+    		}
+    		
+    	for (int j = 0; j < randomWeight; j+=1) {
+    		int num = Random.Range(0, listOfAims.Count);
+    			listOfHits.Add(listOfAims[num]);
+    	}
+    	
     	if (listOfHits.Count > 0) {
     		return listOfHits[(int) Random.Range(0, listOfHits.Count)].hitAimCords;
-    		//return listOfAims[j].hitAimCords;
     		}
-    	return new Vector3 (100, 100, 0);
+    		
+    	return new Vector3 (GameObject.Find("Bot").transform.position.x + Random.Range (-10, 10), GameObject.Find("Bot").transform.position.y + Random.Range (-10, 10), 0);
 
     	//return listOfAims[j].hitAimCords;
     	
