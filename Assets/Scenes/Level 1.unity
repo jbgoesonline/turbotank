@@ -464,6 +464,11 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 140669244}
+    - target: {fileID: 4133176215574872215, guid: b02c008dd0d0a4a78b018e623973b34a,
+        type: 3}
+      propertyPath: angularSpeed
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b02c008dd0d0a4a78b018e623973b34a, type: 3}
 --- !u!1 &969674362
